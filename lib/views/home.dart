@@ -8,10 +8,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TextEditingController controller = TextEditingController();
+  FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
   var urlString = "https://google.com";
   launchUrl() {
     setState(() {
       urlString = controller.text;
+      flutterWebviewPlugin.reloadUrl(urlString);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    flutterWebviewPlugin.onStateChanged.listen((WebViewStateChanged wvs) {
+      print(wvs.type);
     });
   }
 
