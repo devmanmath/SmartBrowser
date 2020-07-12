@@ -29,6 +29,17 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return WebviewScaffold(
       appBar: AppBar(
+        leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              flutterWebviewPlugin.canGoBack().then((value) {
+                if (value) {
+                  flutterWebviewPlugin.goBack();
+                } else {
+                  Navigator.pop(context);
+                }
+              });
+            }),
         title: TextField(
           autofocus: false,
           controller: controller,
