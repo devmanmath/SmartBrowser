@@ -7,43 +7,69 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          // DrawerHeader(
-          //   child: Text('Drawer Header'),
-          //   decoration: BoxDecoration(
-          //     color: Colors.blueAccent,
-          //   ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            trailing: Icon(Icons.keyboard_arrow_right),
+          _createHeader(),
+          _createDrawerItem(
+            icon: Icons.home,
+            text: 'Home',
           ),
-          ListTile(
-            leading: Icon(Icons.menu),
-            title: Text('Menu'),
-            trailing: Icon(Icons.keyboard_arrow_right),
+          _createDrawerItem(
+            icon: Icons.menu,
+            text: 'Menu',
           ),
-          ListTile(
-            leading: Icon(Icons.history),
-            title: Text('History'),
-            trailing: Icon(Icons.keyboard_arrow_right),
+          _createDrawerItem(
+            icon: Icons.history,
+            text: 'History',
           ),
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text('My Favourite'),
-            trailing: Icon(Icons.keyboard_arrow_right),
+          _createDrawerItem(
+            icon: Icons.favorite,
+            text: 'My Favourite',
           ),
-          ListTile(
-            leading: Icon(Icons.feedback),
-            title: Text('Feedback'),
-            trailing: Icon(Icons.keyboard_arrow_right),
+          _createDrawerItem(
+            icon: Icons.feedback,
+            text: 'Feedback',
           ),
-          ListTile(
-            leading: Icon(Icons.help),
-            title: Text('Need Help ?'),
-            trailing: Icon(Icons.keyboard_arrow_right),
+          _createDrawerItem(
+            icon: Icons.help,
+            text: 'Need Help ?',
           ),
         ],
       ),
+    );
+  }
+
+  Widget _createHeader() {
+    return DrawerHeader(
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage('assets/images/drawer_background.jpg'))),
+        child: Stack(children: <Widget>[
+          Positioned(
+              bottom: 12.0,
+              left: 16.0,
+              child: Text("Smart Browser",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w500))),
+        ]));
+  }
+
+  Widget _createDrawerItem(
+      {IconData icon, String text, GestureTapCallback onTap}) {
+    return ListTile(
+      title: Row(
+        children: <Widget>[
+          Icon(icon),
+          Padding(
+            padding: EdgeInsets.only(left: 8.0),
+            child: Text(text),
+          )
+        ],
+      ),
+      onTap: onTap,
     );
   }
 }

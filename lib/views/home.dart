@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:smart_browser/utils/drawer.dart';
 import 'package:smart_browser/utils/webview_placeholder.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class Home extends StatefulWidget {
   @override
