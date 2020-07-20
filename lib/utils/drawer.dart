@@ -12,10 +12,10 @@ class CustomDrawer extends StatelessWidget {
             icon: Icons.home,
             text: 'Home',
           ),
-          _createDrawerItem(
-            icon: Icons.menu,
-            text: 'Menu',
-          ),
+          // _createDrawerItem(
+          //   icon: Icons.menu,
+          //   text: 'Menu',
+          // ),
           _createDrawerItem(
             icon: Icons.history,
             text: 'History',

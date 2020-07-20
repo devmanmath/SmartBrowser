@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:smart_browser/utils/drawer.dart';
 import 'package:smart_browser/utils/webview_placeholder.dart';
@@ -8,6 +10,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<String> courses = [
+    'Back',
+    'Setting',
+    'Share',
+    'Bookmark',
+    'Desktop site'
+  ];
+  String selectedCourse = 'back';
   TextEditingController controller = TextEditingController();
   FocusNode _urlinput;
   var urlString = "https://google.com";
@@ -33,7 +43,8 @@ class _HomeState extends State<Home> {
             style: TextStyle(color: Colors.white),
             focusNode: _urlinput,
             decoration: InputDecoration(
-              border: InputBorder.none,
+              prefix: Text('https://'),
+              border: OutlineInputBorder(),
               hintText: "Ënter Url here",
               suffixIcon: IconButton(
                 icon: Icon(Icons.clear),
@@ -44,7 +55,23 @@ class _HomeState extends State<Home> {
           ),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.navigate_next), onPressed: () => launchUrl())
+                icon: Icon(Icons.navigate_next), onPressed: () => launchUrl()),
+            PopupMenuButton(
+              itemBuilder: (context) {
+                return courses.map((course) {
+                  return PopupMenuItem(
+                    value: course,
+                    child: Text(course),
+                  );
+                }).toList();
+              },
+              onCanceled: () => print('nothing is selected'),
+              onSelected: (value) {
+                setState(() {
+                  selectedCourse = value;
+                });
+              },
+            )
           ],
         ),
         drawer: CustomDrawer(),
