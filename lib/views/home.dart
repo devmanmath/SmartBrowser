@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:smart_browser/utils/drawer.dart';
 import 'package:smart_browser/utils/webview_placeholder.dart';
+import 'package:smart_browser/views/popupmenu.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,14 +11,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> courses = [
-    'Back',
-    'Setting',
-    'Share',
-    'Bookmark',
-    'Desktop site'
-  ];
-  String selectedCourse = 'back';
+  // List<String> courses = [
+  //   'Back',
+  //   'Setting',
+  //   'Share',
+  //   'Bookmark',
+  //   'Desktop site'
+  // ];
+  // String selectedCourse = 'back';
   TextEditingController controller = TextEditingController();
   FocusNode _urlinput;
   var urlString = "https://google.com";
@@ -33,47 +34,49 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: TextField(
-            autofocus: false,
-            controller: controller,
-            cursorColor: Colors.white,
-            cursorWidth: 0.3,
-            textInputAction: TextInputAction.go,
-            onSubmitted: (url) => launchUrl(),
-            style: TextStyle(color: Colors.white),
-            focusNode: _urlinput,
-            decoration: InputDecoration(
-              prefix: Text('https://'),
-              border: OutlineInputBorder(),
-              hintText: "Ënter Url here",
-              suffixIcon: IconButton(
-                icon: Icon(Icons.clear),
-                onPressed: () => controller.clear(),
+            title: TextField(
+              autofocus: false,
+              controller: controller,
+              cursorColor: Colors.white,
+              cursorWidth: 0.3,
+              textInputAction: TextInputAction.go,
+              onSubmitted: (url) => launchUrl(),
+              style: TextStyle(color: Colors.white),
+              focusNode: _urlinput,
+              decoration: InputDecoration(
+                prefix: Text('https://'),
+                border: OutlineInputBorder(),
+                hintText: "Ënter Url here",
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () => controller.clear(),
+                ),
+                hintStyle: TextStyle(color: Colors.white),
               ),
-              hintStyle: TextStyle(color: Colors.white),
             ),
-          ),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.navigate_next), onPressed: () => launchUrl()),
-            PopupMenuButton(
-              itemBuilder: (context) {
-                return courses.map((course) {
-                  return PopupMenuItem(
-                    value: course,
-                    child: Text(course),
-                  );
-                }).toList();
-              },
-              onCanceled: () => print('nothing is selected'),
-              onSelected: (value) {
-                setState(() {
-                  selectedCourse = value;
-                });
-              },
-            )
-          ],
-        ),
+            actions: <Widget>[PopupMenuPage()]
+            //   IconButton(
+            //       icon: Icon(Icons.navigate_next), onPressed: () => launchUrl()),
+            //   PopupMenuButton(
+            //     offset: Offset(0, 55),
+            //     elevation: 10,
+            //     itemBuilder: (context) {
+            //       return courses.map((course) {
+            //         return PopupMenuItem(
+            //           value: course,
+            //           child: Text(course),
+            //         );
+            //       }).toList();
+            //     },
+            //     onCanceled: () => print('nothing is selected'),
+            //     onSelected: (value) {
+            //       setState(() {
+            //         selectedCourse = value;
+            //       });
+            //     },
+            //   )
+            // ],
+            ),
         drawer: CustomDrawer(),
         body: WebviewPlaceholder(urlString));
 

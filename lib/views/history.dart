@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HistoryPage extends StatefulWidget {
   @override
@@ -49,6 +50,49 @@ class _HistoryPageState extends State<HistoryPage> {
                   })
         ],
       ),
+      body: Container(
+        color: Colors.white,
+        child: (Row(
+          children: <Widget>[
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Your Google Acount may have other browsing history at ',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 20),
+                ),
+                GestureDetector(
+                  child: Text('myactivity.google.com \n\n\n',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.blue)),
+                  onTap: () {
+                    openUrl("http://myactivity.google.com");
+                  },
+                ),
+                SizedBox(height: 10.0),
+                GestureDetector(
+                  child: Text(' Clear browsing data....',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.blue)),
+                  onTap: () {
+                    openUrl("http://youtube.com");
+                  },
+                ),
+                Divider(
+                  color: Colors.black,
+                )
+              ],
+            ))
+          ],
+        )),
+      ),
     );
+  }
+
+  openUrl(String url) {
+    String url1 = url;
+    launch(url1);
   }
 }

@@ -12,7 +12,7 @@ class CustomDrawer extends StatelessWidget {
           _createDrawerItem(
               icon: Icons.home,
               text: 'Home',
-              trailing: Icon(Icons.keyboard_arrow_right)),
+              trailing: Icons.keyboard_arrow_right),
           // _createDrawerItem(
           //   icon: Icons.menu,
           //   text: 'Menu',
@@ -20,9 +20,8 @@ class CustomDrawer extends StatelessWidget {
           _createDrawerItem(
             icon: Icons.history,
             text: 'History',
-            trailing: Icon(Icons.keyboard_arrow_right),
+            trailing: Icons.keyboard_arrow_right,
             onTap: () {
-              Navigator.of(context).pop();
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -32,15 +31,15 @@ class CustomDrawer extends StatelessWidget {
           _createDrawerItem(
               icon: Icons.favorite,
               text: 'My Favourite',
-              trailing: Icon(Icons.keyboard_arrow_right)),
+              trailing: Icons.keyboard_arrow_right),
           _createDrawerItem(
               icon: Icons.feedback,
               text: 'Feedback',
-              trailing: Icon(Icons.accessibility)),
+              trailing: Icons.accessibility),
           _createDrawerItem(
               icon: Icons.help,
               text: 'Need Help ?',
-              trailing: Icon(Icons.keyboard_arrow_right)),
+              trailing: Icons.keyboard_arrow_right),
         ],
       ),
     );
@@ -67,7 +66,10 @@ class CustomDrawer extends StatelessWidget {
   }
 
   Widget _createDrawerItem(
-      {IconData icon, String text, GestureTapCallback onTap, Icon trailing}) {
+      {IconData icon,
+      String text,
+      GestureTapCallback onTap,
+      IconData trailing}) {
     return ListTile(
       title: Row(
         children: <Widget>[
@@ -75,7 +77,9 @@ class CustomDrawer extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 8.0),
             child: Text(text),
-          )
+          ),
+          Spacer(),
+          Icon(trailing)
         ],
       ),
       onTap: onTap,
