@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:smart_browser/views/home.dart';
-import 'popmenuitem.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+enum NavLinks { Back, Setting, Share, Bookmark, DesktopSite }
 
 class PopupMenuPage extends StatefulWidget {
   @override
@@ -25,7 +27,8 @@ class _PopupMenuPageState extends State {
           choice = displayString(value);
         });
         // print(choice);
-        launch(linkUrl(value));
+        // launch(linkUrl(value));
+        shareitem(value, context);
       },
       itemBuilder: (BuildContext context) {
         return NavLinks.values.map((link) {
@@ -36,6 +39,60 @@ class _PopupMenuPageState extends State {
         }).toList();
       },
     );
+  }
+
+  void shareitem(NavLinks link, BuildContext context) {
+    switch (link) {
+      case NavLinks.Back:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => Home()));
+        break;
+
+      case NavLinks.Setting:
+        break;
+      case NavLinks.Share:
+        final RenderBox box = context.findRenderObject();
+        Share.share("hi",
+            subject: "",
+            sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+        break;
+
+      case NavLinks.Bookmark:
+        break;
+      case NavLinks.DesktopSite:
+        break;
+
+      default:
+    }
+  }
+
+  String displayString(NavLinks link) {
+    switch (link) {
+      case NavLinks.Back:
+        return "Back";
+        // Navigator.push(
+        //             context,
+        //             MaterialPageRoute(
+        //                 builder: (BuildContext context) => Home()));
+        break;
+
+      case NavLinks.Setting:
+        return "Setting";
+        break;
+      case NavLinks.Share:
+        return "Share";
+        break;
+
+      case NavLinks.Bookmark:
+        return "Bookmark";
+        break;
+      case NavLinks.DesktopSite:
+        return "Desktop Site";
+        break;
+
+      default:
+        return "";
+    }
   }
 }
 

@@ -92,7 +92,7 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
   openUrl(String url) {
-    String url1 = url;
-    launch(url1);
+   // String url1 = url;
+    launch(url);
   }
 }
