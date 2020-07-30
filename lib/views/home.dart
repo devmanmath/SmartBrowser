@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_browser/utils/drawer.dart';
 import 'package:smart_browser/utils/webview_placeholder.dart';
 import 'package:smart_browser/views/popupmenu.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,13 +22,26 @@ class _HomeState extends State<Home> {
   // String selectedCourse = 'back';
   TextEditingController controller = TextEditingController();
   FocusNode _urlinput;
+  WebViewController _viewController;
+  int progress = 0;
   var urlString = "https://google.com";
   final key = UniqueKey();
   launchUrl() {
     setState(() {
-      urlString = controller.text;
-      _urlinput.unfocus();
+      String urltext = controller.text.trim();
+      if (urltext.contains("http"))
+        print(urltext);
+      else
+        print("not a valid  url");
+      urlString = controller.text.trim();
+      // _urlinput.unfocus();
     });
+    print(urlString);
+    try {
+      _viewController.loadUrl(urlString);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -78,7 +92,15 @@ class _HomeState extends State<Home> {
             // ],
             ),
         drawer: CustomDrawer(),
-        body: WebviewPlaceholder(urlString));
+        body: WebView(
+          initialUrl: urlString,
+          onWebViewCreated: (WebViewController webViewController) {
+            _viewController = webViewController;
+          },
+          onPageStarted: (String url) {
+            print('your url $url');
+          },
+        ));
 
     //   return WebviewScaffold(
     //     appBar: AppBar(
