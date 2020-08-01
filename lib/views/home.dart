@@ -23,6 +23,8 @@ class _HomeState extends State<Home> {
   TextEditingController controller = TextEditingController();
   FocusNode _urlinput;
   WebViewController _viewController;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   int progress = 0;
   var urlString = "https://google.com";
   final key = UniqueKey();
@@ -46,51 +48,42 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final double statusbarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
-        appBar: AppBar(
-            title: TextField(
-              autofocus: false,
-              controller: controller,
-              cursorColor: Colors.white,
-              cursorWidth: 0.3,
-              textInputAction: TextInputAction.go,
-              onSubmitted: (url) => launchUrl(),
-              style: TextStyle(color: Colors.white),
-              focusNode: _urlinput,
-              decoration: InputDecoration(
-                prefix: Text('https://'),
-                border: OutlineInputBorder(),
-                hintText: "Ënter Url here",
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
-                  onPressed: () => controller.clear(),
-                ),
-                hintStyle: TextStyle(color: Colors.white),
-              ),
-            ),
-            actions: <Widget>[PopupMenuPage()]
-            //   IconButton(
-            //       icon: Icon(Icons.navigate_next), onPressed: () => launchUrl()),
-            //   PopupMenuButton(
-            //     offset: Offset(0, 55),
-            //     elevation: 10,
-            //     itemBuilder: (context) {
-            //       return courses.map((course) {
-            //         return PopupMenuItem(
-            //           value: course,
-            //           child: Text(course),
-            //         );
-            //       }).toList();
-            //     },
-            //     onCanceled: () => print('nothing is selected'),
-            //     onSelected: (value) {
-            //       setState(() {
-            //         selectedCourse = value;
-            //       });
-            //     },
-            //   )
-            // ],
-            ),
+        key: _scaffoldKey,
+        appBar: PreferredSize(
+          child: _customAppbar(statusbarHeight),
+          preferredSize: Size.fromHeight(kToolbarHeight),
+        ),
+        // appBar: AppBar(
+        //     backgroundColor: Colors.blue,
+        //     title: TextField(
+        //       autofocus: false,
+        //       controller: controller,
+        //       cursorColor: Colors.white,
+        //       cursorWidth: 0.3,
+        //       textInputAction: TextInputAction.go,
+        //       onSubmitted: (url) => launchUrl(),
+        //       style: TextStyle(color: Colors.black),
+        //       focusNode: _urlinput,
+        //       decoration: InputDecoration(
+        //         contentPadding: EdgeInsets.all(10.0),
+        //         filled: true,
+        //         fillColor: Colors.lightBlueAccent,
+        //         prefix: Text('https://'),
+        //         border: OutlineInputBorder(
+        //             borderSide: BorderSide.none,
+        //             borderRadius: BorderRadius.circular(10.0)),
+        //         hintText: "Ënter Url here",
+        //         suffixIcon: IconButton(
+        //           icon: Icon(Icons.clear),
+        //           onPressed: () => controller.clear(),
+        //         ),
+        //         hintStyle: TextStyle(color: Colors.black),
+        //       ),
+        //     ),
+        //     actions: <Widget>[PopupMenuPage()]
+        //     ),
         drawer: CustomDrawer(),
         body: WebView(
           initialUrl: urlString,
@@ -101,45 +94,67 @@ class _HomeState extends State<Home> {
             print('your url $url');
           },
         ));
+  }
 
-    //   return WebviewScaffold(
-    //     appBar: AppBar(
-    //       leading: new IconButton(
-    //           icon: new Icon(Icons.arrow_back),
-    //           onPressed: () {
-    //             flutterWebviewPlugin.canGoBack().then((value) {
-    //               if (value) {
-    //                 flutterWebviewPlugin.goBack();
-    //               } else {
-    //                 Navigator.pop(context);
-    //               }
-    //             });
-    //           }),
-    //       title: TextField(
-    //         autofocus: true,
-    //         controller: controller,
-    //         cursorColor: Colors.white,
-    //         cursorWidth: 0.3,
-    //         textInputAction: TextInputAction.go,
-    //         onSubmitted: (url) => launchUrl(),
-    //         style: TextStyle(color: Colors.white),
-    //         decoration: InputDecoration(
-    //           border: InputBorder.none,
-    //           hintText: "Ënter Url here",
-    //           suffixIcon: IconButton(
-    //             icon: Icon(Icons.clear),
-    //             onPressed: () => controller.clear(),
-    //           ),
-    //           hintStyle: TextStyle(color: Colors.white),
-    //         ),
-    //       ),
-    //       actions: <Widget>[
-    //         IconButton(
-    //             icon: Icon(Icons.navigate_next), onPressed: () => launchUrl()),
-    //       ],
-    //     ),
-    //     url: urlString,
-    //     withZoom: true,
-    //   );
+  Widget _customAppbar(double sheight) {
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          Positioned(
+            top: sheight,
+            left: 3.0,
+            right: 3.0,
+            child: Container(
+              // padding: EdgeInsets.symmetric(horizontal: 1.0),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(
+                        color: Colors.grey.withOpacity(0.5), width: 1.0),
+                    color: Colors.white),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.menu,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        print("your menu action here");
+                        _scaffoldKey.currentState.openDrawer();
+                        // Scaffold.of(context).openDrawer();
+                      },
+                    ),
+                    Expanded(
+                      child: TextField(
+                        autofocus: false,
+                        controller: controller,
+                        focusNode: _urlinput,
+                        onSubmitted: (url) => launchUrl(),
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          prefix: Text('https://'),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.search,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        print("your menu action here");
+                        launchUrl();
+                      },
+                    ),
+                    PopupMenuPage()
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

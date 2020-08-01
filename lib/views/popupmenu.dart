@@ -16,7 +16,8 @@ class _PopupMenuPageState extends State {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      offset: Offset(0, 50),
+      icon: Icon(Icons.more_vert, color: Colors.red),
+      offset: Offset(0, 40),
       elevation: 10,
       onSelected: (NavLinks value) {
         setState(() {
