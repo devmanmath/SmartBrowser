@@ -12,22 +12,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // List<String> courses = [
-  //   'Back',
-  //   'Setting',
-  //   'Share',
-  //   'Bookmark',
-  //   'Desktop site'
-  // ];
-  // String selectedCourse = 'back';
   TextEditingController controller = TextEditingController();
   FocusNode _urlinput;
   WebViewController _viewController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  List<String> _tabs = [];
+  String _defaultTab = "";
+  int _currentIndex = 0;
+
   int progress = 0;
   var urlString = "https://google.com";
   final key = UniqueKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _defaultTab = "https://google.com";
+    _tabs = [
+      "https://google.com",
+      "https://facebook.com",
+      "https://facebook.com",
+      "https://facebook.com",
+      "https://facebook.com",
+    ];
+  }
+
   launchUrl() {
     setState(() {
       String urltext = controller.text.trim();
@@ -55,6 +65,7 @@ class _HomeState extends State<Home> {
           child: _customAppbar(statusbarHeight),
           preferredSize: Size.fromHeight(kToolbarHeight),
         ),
+        bottomNavigationBar: _bottmnavBar(),
         // appBar: AppBar(
         //     backgroundColor: Colors.blue,
         //     title: TextField(
@@ -156,5 +167,46 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+
+  Widget _bottmnavBar() {
+    return BottomNavigationBar(
+        backgroundColor: Colors.brown[200],
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
+        onTap: _onTabTapped,
+        currentIndex: _currentIndex,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home', style: TextStyle(color: Color(0xFF2c2b2b))),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.music_note),
+            title: Text('Music', style: TextStyle(color: Color(0xFF2c2b2b))),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.video_library),
+            title: Text('Video', style: TextStyle(color: Color(0xFF2c2b2b))),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.games),
+            title: Text('Game', style: TextStyle(color: Color(0xFF2c2b2b))),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.scatter_plot),
+            title: Text('Cricket', style: TextStyle(color: Color(0xFF2c2b2b))),
+          ),
+        ]);
+  }
+
+  void _onTabTapped(int index) {
+    setState(() {
+      //  lastIndex=_currentIndex;
+      _currentIndex = index;
+      _defaultTab = _tabs[index];
+    });
+    print(_defaultTab);
+    _viewController.loadUrl(_defaultTab);
   }
 }
