@@ -113,8 +113,8 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           Positioned(
             top: sheight,
-            left: 3.0,
-            right: 3.0,
+            left: 5.0,
+            right: 5.0,
             child: Container(
               // padding: EdgeInsets.symmetric(horizontal: 1.0),
               child: DecoratedBox(
@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(5.0),
                     border: Border.all(
                         color: Colors.grey.withOpacity(0.5), width: 1.0),
-                    color: Colors.white),
+                    color: Colors.white30),
                 child: Row(
                   children: [
                     IconButton(
@@ -171,7 +171,9 @@ class _HomeState extends State<Home> {
 
   Widget _bottmnavBar() {
     return BottomNavigationBar(
-        backgroundColor: Colors.brown[200],
+        backgroundColor: Colors.white,
+        unselectedItemColor: Colors.red[600],
+        selectedItemColor: Colors.blue,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         onTap: _onTabTapped,
@@ -179,23 +181,23 @@ class _HomeState extends State<Home> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home', style: TextStyle(color: Color(0xFF2c2b2b))),
+            title: Text('Home'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.music_note),
-            title: Text('Music', style: TextStyle(color: Color(0xFF2c2b2b))),
+            title: Text('Music'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.video_library),
-            title: Text('Video', style: TextStyle(color: Color(0xFF2c2b2b))),
+            title: Text('Video'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.games),
-            title: Text('Game', style: TextStyle(color: Color(0xFF2c2b2b))),
+            title: Text('Game'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.scatter_plot),
-            title: Text('Cricket', style: TextStyle(color: Color(0xFF2c2b2b))),
+            title: Text('Cricket'),
           ),
         ]);
   }
