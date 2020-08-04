@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smart_browser/views/home.dart';
-import 'package:smart_browser/views/dashboard.dart';
-import 'package:smart_browser/utils/newmain.dart';
 
 void main() {
   runApp(MyApp());

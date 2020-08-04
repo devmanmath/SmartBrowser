@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:smart_browser/views/home.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 enum NavLinks { Back, Setting, Share, Bookmark, DesktopSite }
 
 class PopupMenuPage extends StatefulWidget {
+  final String shareUrl;
+  const PopupMenuPage(this.shareUrl);
+
   @override
   _PopupMenuPageState createState() => _PopupMenuPageState();
 }
 
-class _PopupMenuPageState extends State {
+class _PopupMenuPageState extends State<PopupMenuPage> {
   String choice = "Click Settings to make your selection";
-
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -53,7 +54,7 @@ class _PopupMenuPageState extends State {
         break;
       case NavLinks.Share:
         final RenderBox box = context.findRenderObject();
-        Share.share("hi",
+        Share.share("${widget.shareUrl}",
             subject: "",
             sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
         break;

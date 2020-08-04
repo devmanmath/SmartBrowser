@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:smart_browser/utils/drawer.dart';
-import 'package:smart_browser/utils/webview_placeholder.dart';
 import 'package:smart_browser/views/popupmenu.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -104,6 +103,13 @@ class _HomeState extends State<Home> {
           onPageStarted: (String url) {
             print('your url $url');
           },
+          onPageFinished: (String url) {
+            print('your end url is $url');
+            setState(() {
+              urlString = url;
+              controller.text = url;
+            });
+          },
         ));
   }
 
@@ -158,7 +164,7 @@ class _HomeState extends State<Home> {
                         launchUrl();
                       },
                     ),
-                    PopupMenuPage()
+                    PopupMenuPage(urlString)
                   ],
                 ),
               ),
