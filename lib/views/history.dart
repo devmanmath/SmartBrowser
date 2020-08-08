@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
+import '../model/database.dart';
 
 class HistoryPage extends StatefulWidget {
   @override
@@ -82,7 +86,8 @@ class _HistoryPageState extends State<HistoryPage> {
                 ),
                 Divider(
                   color: Colors.black,
-                )
+                ),
+                Expanded(child: _buildTaskList(context)),
               ],
             ))
           ],
@@ -92,7 +97,43 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
   openUrl(String url) {
-   // String url1 = url;
+    // String url1 = url;
     launch(url);
   }
+}
+
+StreamBuilder<List<Url>> _buildTaskList(BuildContext context) {
+  final database = Provider.of<AppDatabase>(context);
+  return StreamBuilder(
+    stream: database.watchAllUrls(),
+    builder: (context, AsyncSnapshot<List<Url>> snapshot) {
+      final urls = snapshot.data ?? List();
+
+      return ListView.builder(
+        itemCount: urls.length,
+        itemBuilder: (_, index) {
+          final itemUrl = urls[index];
+          return _buildListItem(itemUrl, database);
+        },
+      );
+    },
+  );
+}
+
+Widget _buildListItem(Url itemUrl, AppDatabase database) {
+  return Slidable(
+    actionPane: SlidableDrawerActionPane(),
+    secondaryActions: <Widget>[
+      IconSlideAction(
+        caption: 'Delete',
+        color: Colors.red,
+        icon: Icons.delete,
+        onTap: () => database.deleteUrl(itemUrl),
+      )
+    ],
+    child: ListTile(
+      title: Text(itemUrl.urladdress),
+      subtitle: Text(itemUrl.dueDate?.toString() ?? 'No date'),
+    ),
+  );
 }

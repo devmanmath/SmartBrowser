@@ -1,9 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:smart_browser/utils/drawer.dart';
 import 'package:smart_browser/views/popupmenu.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+//import 'package:smart_browser/views/history.dart';
+import 'package:provider/provider.dart';
+
+import '../model/database.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -58,10 +60,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final double statusbarHeight = MediaQuery.of(context).padding.top;
+    final database = Provider.of<AppDatabase>(context);
     return Scaffold(
         key: _scaffoldKey,
         appBar: PreferredSize(
-          child: _customAppbar(statusbarHeight),
+          child: _customAppbar(statusbarHeight, context),
           preferredSize: Size.fromHeight(kToolbarHeight),
         ),
         bottomNavigationBar: _bottmnavBar(),
@@ -109,11 +112,13 @@ class _HomeState extends State<Home> {
               urlString = url;
               controller.text = url;
             });
+            final iurl = Url(urladdress: urlString, dueDate: DateTime.now());
+            database.insertUrl(iurl);
           },
         ));
   }
 
-  Widget _customAppbar(double sheight) {
+  Widget _customAppbar(double sheight, BuildContext context) {
     return Container(
       child: Stack(
         children: <Widget>[
@@ -147,7 +152,9 @@ class _HomeState extends State<Home> {
                         autofocus: false,
                         controller: controller,
                         focusNode: _urlinput,
-                        onSubmitted: (url) => launchUrl(),
+                        onSubmitted: (url) {
+                          launchUrl();
+                        },
                         decoration: InputDecoration(
                           hintText: "Search",
                           prefix: Text('https://'),

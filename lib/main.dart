@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_browser/views/home.dart';
+import 'package:provider/provider.dart';
+
+import 'model/database.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,12 +11,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Smart Browser",
-      theme:
-          ThemeData(accentColor: Colors.red[50], backgroundColor: Colors.white),
-      home: Home(),
-    );
+    // ignore: missing_required_param
+    return Provider(
+        builder: (_) => AppDatabase(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: "Smart Browser",
+          theme: ThemeData(
+              accentColor: Colors.red[50], backgroundColor: Colors.white),
+          home: Home(),
+        ));
   }
 }
