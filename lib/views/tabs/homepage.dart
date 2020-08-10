@@ -4,40 +4,26 @@ import 'package:smart_browser/views/popupmenu.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 //import 'package:smart_browser/views/history.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_browser/model/database.dart';
 
-import '../model/database.dart';
-
-class Home extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   TextEditingController controller = TextEditingController();
   FocusNode _urlinput;
   WebViewController _viewController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  List<String> _tabs = [];
-  String _defaultTab = "";
+  List<StatefulWidget> _tabs;
+  StatefulWidget _defaultTab;
   int _currentIndex = 0;
 
   int progress = 0;
   var urlString = "https://google.com";
   final key = UniqueKey();
-
-  @override
-  void initState() {
-    super.initState();
-    _defaultTab = "https://google.com";
-    _tabs = [
-      "https://google.com",
-      "https://facebook.com",
-      "https://facebook.com",
-      "https://facebook.com",
-      "https://facebook.com",
-    ];
-  }
 
   launchUrl() {
     setState(() {
@@ -67,36 +53,6 @@ class _HomeState extends State<Home> {
           child: _customAppbar(statusbarHeight, context),
           preferredSize: Size.fromHeight(kToolbarHeight),
         ),
-        bottomNavigationBar: _bottmnavBar(),
-        // appBar: AppBar(
-        //     backgroundColor: Colors.blue,
-        //     title: TextField(
-        //       autofocus: false,
-        //       controller: controller,
-        //       cursorColor: Colors.white,
-        //       cursorWidth: 0.3,
-        //       textInputAction: TextInputAction.go,
-        //       onSubmitted: (url) => launchUrl(),
-        //       style: TextStyle(color: Colors.black),
-        //       focusNode: _urlinput,
-        //       decoration: InputDecoration(
-        //         contentPadding: EdgeInsets.all(10.0),
-        //         filled: true,
-        //         fillColor: Colors.lightBlueAccent,
-        //         prefix: Text('https://'),
-        //         border: OutlineInputBorder(
-        //             borderSide: BorderSide.none,
-        //             borderRadius: BorderRadius.circular(10.0)),
-        //         hintText: "Ënter Url here",
-        //         suffixIcon: IconButton(
-        //           icon: Icon(Icons.clear),
-        //           onPressed: () => controller.clear(),
-        //         ),
-        //         hintStyle: TextStyle(color: Colors.black),
-        //       ),
-        //     ),
-        //     actions: <Widget>[PopupMenuPage()]
-        //     ),
         drawer: CustomDrawer(),
         body: WebView(
           initialUrl: urlString,
@@ -180,48 +136,5 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
-  }
-
-  Widget _bottmnavBar() {
-    return BottomNavigationBar(
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.red[600],
-        selectedItemColor: Colors.blue,
-        type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: true,
-        onTap: _onTabTapped,
-        currentIndex: _currentIndex,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.music_note),
-            title: Text('Music'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.video_library),
-            title: Text('Video'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.games),
-            title: Text('Game'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.scatter_plot),
-            title: Text('Cricket'),
-          ),
-        ]);
-  }
-
-  void _onTabTapped(int index) {
-    setState(() {
-      //  lastIndex=_currentIndex;
-      _currentIndex = index;
-      _defaultTab = _tabs[index];
-    });
-    print(_defaultTab);
-    _viewController.loadUrl(_defaultTab);
   }
 }

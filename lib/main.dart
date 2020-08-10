@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_browser/views/home.dart';
+import 'package:smart_browser/views/dashboard.dart';
 import 'package:provider/provider.dart';
 
 import 'model/database.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           title: "Smart Browser",
           theme: ThemeData(
               accentColor: Colors.red[50], backgroundColor: Colors.white),
-          home: Home(),
+          home: Dashboard(),
         ));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:smart_browser/views/home.dart';
+import 'package:smart_browser/views/dashboard.dart';
 
 enum NavLinks { Back, Setting, Share, Bookmark, DesktopSite }
 
@@ -47,7 +47,7 @@ class _PopupMenuPageState extends State<PopupMenuPage> {
     switch (link) {
       case NavLinks.Back:
         Navigator.push(context,
-            MaterialPageRoute(builder: (BuildContext context) => Home()));
+            MaterialPageRoute(builder: (BuildContext context) => Dashboard()));
         break;
 
       case NavLinks.Setting:
