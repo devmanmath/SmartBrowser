@@ -7,31 +7,44 @@ class ShopingPage extends StatefulWidget {
 }
 
 class _ShopingPageState extends State<ShopingPage> {
-  // List<String> images = [
-  //   "assets/images/s0.jpg",
-  //   "assets/images/s1.jpg",
-  //   "assets/images/s2.jpg",
-  //   "assets/images/s3.jpg",
-  //   "assets/images/s4.jpg",
-  //   "assets/images/s5.jpg",
-  //   "assets/images/s6.jpg"
-  // ];
-  // int _currentIndex = 0;
   List<String> directLinks;
+  List<String> imageList;
+  String imageBase = "assets/images/";
   @override
   void initState() {
     super.initState();
 
     directLinks = [
-      'amazon', 'flipkart', 'flipkart', 'flipkart', 'amazon', 'snapdeal',
-      'flipkart'
-      // "https://amazon.com",
-      // "https://flipkart.com",
-      // "https://flipkart.com",
-      // "https://flipkart.com",
-      // "https://flipkart.com",
-      // "https://flipkart.com",
-      // "https://snapdeal.com",
+      "https://amazon.com",
+      "https://flipkart.com",
+      "https://flipkart.com",
+      "https://flipkart.com",
+      "https://flipkart.com",
+      "https://flipkart.com",
+      "https://snapdeal.com",
+      "https://amazon.com",
+      "https://flipkart.com",
+      "https://flipkart.com",
+      "https://flipkart.com",
+      "https://flipkart.com",
+      "https://flipkart.com",
+      "https://snapdeal.com",
+    ];
+    imageList = [
+      "s0.jpg",
+      "s1.jpg",
+      "s2.jpg",
+      "s3.jpg",
+      "s4.jpg",
+      "s5.jpg",
+      "m4.jpg",
+      "s0.jpg",
+      "s1.jpg",
+      "s2.jpg",
+      "s3.jpg",
+      "s4.jpg",
+      "s5.jpg",
+      "m4.jpg"
     ];
   }
 
@@ -49,7 +62,7 @@ class _ShopingPageState extends State<ShopingPage> {
         ),
         body: OrientationBuilder(builder: (context, orientation) {
           return GridView.builder(
-              itemCount: 7,
+              itemCount: directLinks.length,
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
@@ -57,12 +70,13 @@ class _ShopingPageState extends State<ShopingPage> {
                 crossAxisSpacing: 2.0,
               ),
               itemBuilder: (BuildContext context, int index) {
+                String imageAddress = imageBase + imageList[index];
                 return new Card(
                     child: new InkResponse(
-                  child: Image.asset('assets/images/s$index.jpg'),
+                  child: Image.asset(imageAddress),
                   onTap: () {
                     // print(index);
-                    openUrl("https://amazon.com");
+                    openUrl(directLinks[index]);
                   },
                 ));
               });
@@ -70,6 +84,6 @@ class _ShopingPageState extends State<ShopingPage> {
   }
 }
 
-openUrl(String url) {
+void openUrl(String url) {
   launch(url);
 }
