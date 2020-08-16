@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:smart_browser/utils/error_connection.dart';
 import 'package:smart_browser/views/tabs/homepage.dart';
 import 'package:smart_browser/views/tabs/musicpage.dart';
 import 'package:smart_browser/views/tabs/videopage.dart';
 import 'package:smart_browser/views/tabs/gamepage.dart';
 import 'package:smart_browser/views/tabs/shoppingpage.dart';
+import 'package:connectivity/connectivity.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -14,12 +18,31 @@ class _DashboardState extends State<Dashboard> {
   List<StatefulWidget> _tabs;
   StatefulWidget _defaultTab;
   int _currentIndex = 0;
+  bool _connectionStatus = true;
+  final Connectivity _connectivity = Connectivity();
+  StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   @override
   void initState() {
     super.initState();
     _defaultTab = HomePage();
     _tabs = [HomePage(), MusicPage(), VideoPage(), GamePage(), ShopingPage()];
+
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+      print(result);
+      if (result != ConnectivityResult.none) {
+        _connectionStatus = true;
+      } else {
+        _connectionStatus = false;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _connectivitySubscription.cancel();
+    super.dispose();
   }
 
   @override
@@ -28,12 +51,13 @@ class _DashboardState extends State<Dashboard> {
       bottomNavigationBar: _bottmnavBar(),
       body: Builder(
         builder: (context) => Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: _defaultTab,
-          ),
-        ),
+            child: _connectionStatus
+                ? Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: _defaultTab,
+                  )
+                : ErrorConnection()),
       ),
     );
   }

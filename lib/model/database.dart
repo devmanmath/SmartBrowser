@@ -28,4 +28,9 @@ class AppDatabase extends _$AppDatabase {
   Future updateUrl(Url url) => update(urls).replace(url);
 
   Future deleteUrl(Url url) => delete(urls).delete(url);
+  Future<void> deleteAllData(Table table) {
+    return transaction((_) async {
+      await delete(table).go();
+    });
+  }
 }
