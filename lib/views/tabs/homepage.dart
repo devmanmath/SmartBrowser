@@ -17,10 +17,6 @@ class _HomePageState extends State<HomePage> {
   WebViewController _viewController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  List<StatefulWidget> _tabs;
-  StatefulWidget _defaultTab;
-  int _currentIndex = 0;
-
   int progress = 0;
   var urlString = "https://google.com";
   final key = UniqueKey();

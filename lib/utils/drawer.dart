@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_browser/views/history.dart';
+import 'package:smart_browser/views/tabs/homepage.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -10,9 +11,16 @@ class CustomDrawer extends StatelessWidget {
         children: <Widget>[
           _createHeader(),
           _createDrawerItem(
-              icon: Icons.home,
-              text: 'Home',
-              trailing: Icons.keyboard_arrow_right),
+            icon: Icons.home,
+            text: 'Home',
+            trailing: Icons.keyboard_arrow_right,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => HomePage()));
+            },
+          ),
           // _createDrawerItem(
           //   icon: Icons.menu,
           //   text: 'Menu',

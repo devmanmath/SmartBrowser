@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smart_browser/utils/drawer.dart';
-import 'package:smart_browser/views/popupmenu.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:smart_browser/views/tabs/homepage.dart';
 import 'package:smart_browser/views/tabs/musicpage.dart';
 import 'package:smart_browser/views/tabs/videopage.dart';
 import 'package:smart_browser/views/tabs/gamepage.dart';
-import 'package:smart_browser/views/tabs/shopingpage.dart';
-
-import '../model/database.dart';
+import 'package:smart_browser/views/tabs/shoppingpage.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -63,8 +57,8 @@ class _DashboardState extends State<Dashboard> {
             title: Text('Music'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.video_library),
-            title: Text('Video'),
+            icon: Icon(Icons.import_contacts),
+            title: Text('Topsites'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.games),
@@ -72,7 +66,7 @@ class _DashboardState extends State<Dashboard> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.scatter_plot),
-            title: Text('Shoping'),
+            title: Text('Shopping'),
           ),
         ]);
   }

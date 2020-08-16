@@ -37,14 +37,14 @@ class _ShopingPageState extends State<ShopingPage> {
       "s3.jpg",
       "s4.jpg",
       "s5.jpg",
-      "m4.jpg",
+      "m4.png",
       "s0.jpg",
       "s1.jpg",
       "s2.jpg",
       "s3.jpg",
       "s4.jpg",
       "s5.jpg",
-      "m4.jpg"
+      "m4.png"
     ];
   }
 
