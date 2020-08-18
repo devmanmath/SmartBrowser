@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_browser/views/history.dart';
-import 'package:smart_browser/views/tabs/homepage.dart';
+import 'package:smart_browser/views/dashboard.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class CustomDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => HomePage()));
+                      builder: (BuildContext context) => Dashboard()));
             },
           ),
           // _createDrawerItem(
