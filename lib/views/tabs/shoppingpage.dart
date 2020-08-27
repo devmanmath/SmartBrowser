@@ -16,19 +16,20 @@ class _ShopingPageState extends State<ShopingPage> {
 
     directLinks = [
       "https://amazon.com",
-      "https://flipkart.com",
-      "https://flipkart.com",
-      "https://flipkart.com",
-      "https://flipkart.com",
-      "https://flipkart.com",
+      "https://lifestyle.com",
+      "https://limeroad.com",
+      "https://maxfashion.com",
+      "https://myntra.com",
+      "https://nykaa.com",
+      "https://olx.com",
+      "https://selmaro.com",
       "https://snapdeal.com",
-      "https://amazon.com",
-      "https://flipkart.com",
-      "https://flipkart.com",
-      "https://flipkart.com",
-      "https://flipkart.com",
-      "https://flipkart.com",
-      "https://snapdeal.com",
+      "https://zara.com",
+      "https://aliexpress.com",
+      "https://hyperpure.com",
+      "https://voonik.com",
+      "https://quikr.com",
+      "https://justdial.com",
     ];
     imageList = [
       "samazon.png",
@@ -42,9 +43,10 @@ class _ShopingPageState extends State<ShopingPage> {
       "ssnapdeal.jpg",
       "szara.jpg",
       "saliexpress.jpg",
-      "s4.jpg",
-      "s5.jpg",
-      "m4.png"
+      "shyperpure.jpg",
+      "svoonik.jpg",
+      "squikr.jpg",
+      "sjustdial.jpg",
     ];
   }
 
